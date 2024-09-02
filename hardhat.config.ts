@@ -7,8 +7,9 @@ import '@nomiclabs/hardhat-etherscan'
 import 'solidity-coverage'
 
 import * as fs from 'fs'
-
+require("dotenv").config();
 const mnemonicFileName = process.env.MNEMONIC_FILE ?? `${process.env.HOME}/.secret/testnet-mnemonic.txt`
+const qngRpc = process.env.QNG_RPC ?? "http://localhost:8545";
 let mnemonic = 'test '.repeat(11) + 'junk'
 if (fs.existsSync(mnemonicFileName)) { mnemonic = fs.readFileSync(mnemonicFileName, 'ascii') }
 
@@ -54,7 +55,8 @@ const config: HardhatUserConfig = {
     localgeth: { url: 'http://localgeth:8545' },
     goerli: getNetwork('goerli'),
     sepolia: getNetwork('sepolia'),
-    proxy: getNetwork1('http://localhost:8545')
+    proxy: getNetwork1('http://localhost:8545'),
+    qng: getNetwork1(qngRpc)
   },
   mocha: {
     timeout: 10000
