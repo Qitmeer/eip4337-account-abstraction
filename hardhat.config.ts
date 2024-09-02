@@ -1,6 +1,6 @@
 import '@nomiclabs/hardhat-waffle'
 import '@typechain/hardhat'
-import { HardhatUserConfig, task } from 'hardhat/config'
+import { HardhatUserConfig } from 'hardhat/config'
 import 'hardhat-deploy'
 import '@nomiclabs/hardhat-etherscan'
 
@@ -8,13 +8,8 @@ import 'solidity-coverage'
 
 import * as fs from 'fs'
 require("dotenv").config();
-const SALT = '0x90d8084deab30c2a37c45e8d47f49f2f7965183cb6990a98943ef94940681de3'
-process.env.SALT = process.env.SALT ?? SALT
+const mnemonicFileName = process.env.MNEMONIC_FILE ?? `${process.env.HOME}/.secret/testnet-mnemonic.txt`
 const qngRpc = process.env.QNG_RPC ?? "http://localhost:8545";
-task('deploy', 'Deploy contracts')
-  .addFlag('simpleAccountFactory', 'deploy sample factory (by default, enabled only on localhost)')
-
-const mnemonicFileName = process.env.MNEMONIC_FILE!
 let mnemonic = 'test '.repeat(11) + 'junk'
 if (fs.existsSync(mnemonicFileName)) { mnemonic = fs.readFileSync(mnemonicFileName, 'ascii') }
 
@@ -31,7 +26,7 @@ function getNetwork (name: string): { url: string, accounts: { mnemonic: string 
 }
 
 const optimizedComilerSettings = {
-  version: '0.8.23',
+  version: '0.8.17',
   settings: {
     optimizer: { enabled: true, runs: 1000000 },
     viaIR: true
@@ -44,7 +39,7 @@ const optimizedComilerSettings = {
 const config: HardhatUserConfig = {
   solidity: {
     compilers: [{
-      version: '0.8.23',
+      version: '0.8.15',
       settings: {
         optimizer: { enabled: true, runs: 1000000 }
       }
@@ -66,7 +61,7 @@ const config: HardhatUserConfig = {
   mocha: {
     timeout: 10000
   },
-  // @ts-ignore
+
   etherscan: {
     apiKey: process.env.ETHERSCAN_API_KEY
   }
