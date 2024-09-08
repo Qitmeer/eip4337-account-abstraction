@@ -5,7 +5,7 @@ pragma solidity ^0.8.12;
 
 import "../core/BasePaymaster.sol";
 
-contract MeerChangePaymaster is BasePaymaster {
+contract QngPaymaster is BasePaymaster {
     using UserOperationLib for UserOperation;
 
     // meerchange contract address

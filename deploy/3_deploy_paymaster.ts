@@ -11,7 +11,7 @@ const deployMeerChangePaymaster: DeployFunction = async function (
   const MeerChangeAddr = "0x422f6F90B35D91D7D4F03aC791c6C07b1c14af1f";
 
   // use create2factory to deploy
-  const ret = await hre.deployments.deploy("MeerChangePaymaster", {
+  const ret = await hre.deployments.deploy("QngPaymaster", {
     from,
     args: [entrypoint.address, MeerChangeAddr],
     gasLimit: 8e6,
