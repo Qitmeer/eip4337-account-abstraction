@@ -1,5 +1,5 @@
 {
-  "name": "@qng/eip4337/contracts",
+  "name": "@qng/eip4337-contracts",
   "description": "Qng Account Abstraction (EIP 4337) contracts",
   "version": "0.6.0",
   "main": "./dist/index.js",
