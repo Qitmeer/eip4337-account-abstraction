@@ -1,6 +1,6 @@
 {
-  "name": "@account-abstraction/contracts",
-  "description": "Account Abstraction (EIP 4337) contracts",
+  "name": "@qng/eip4337/contracts",
+  "description": "Qng Account Abstraction (EIP 4337) contracts",
   "version": "0.6.0",
   "main": "./dist/index.js",
   "scripts": {
@@ -9,11 +9,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/eth-infinitism/account-abstraction"
+    "url": "https://github.com/Qitmeer/eip4337-account-abstraction"
   },
   "keywords": [
     "solidity",
-    "ethereum",
+    "qng",
     "smart",
     "contracts",
     "accipt-abstraction",
@@ -21,7 +21,7 @@
   ],
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/eth-infinitism/account-abstraction/issues"
+    "url": "https://github.com/Qitmeer/eip4337-account-abstraction/issues"
   },
   "devDependencies": {
     "@gnosis.pm/safe-contracts": "^1.3.0",
