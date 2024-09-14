@@ -1,0 +1,10 @@
+{
+  "_format": "hh-sol-artifact-1",
+  "contractName": "SignatureDecoder",
+  "sourceName": "@gnosis.pm/safe-contracts/contracts/common/SignatureDecoder.sol",
+  "abi": [],
+  "bytecode": "0x6080604052348015600f57600080fd5b50603f80601d6000396000f3fe6080604052600080fdfea264697066735822122012b3317d0235ab7f284405ede9cf982c6f3fbf669b9df313133836e20046013b64736f6c634300080f0033",
+  "deployedBytecode": "0x6080604052600080fdfea264697066735822122012b3317d0235ab7f284405ede9cf982c6f3fbf669b9df313133836e20046013b64736f6c634300080f0033",
+  "linkReferences": {},
+  "deployedLinkReferences": {}
+}
