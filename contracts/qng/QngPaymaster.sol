@@ -12,7 +12,6 @@ contract QngPaymaster is BasePaymaster {
     address public meerchange;
 
     event Received(address sender, uint amount);
-
     constructor(
         IEntryPoint _entryPoint,
         address _meerchange
@@ -24,7 +23,9 @@ contract QngPaymaster is BasePaymaster {
         deposit();
         emit Received(msg.sender, msg.value);
     }
-
+    function changeMerechange(address _meerchange) external onlyOwner {
+        meerchange = _meerchange;
+    }
     // the meerchange has fee refunds
     // validate the request:
     // validatePaymasterUserOp

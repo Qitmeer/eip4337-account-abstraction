@@ -15,8 +15,8 @@ import "./QngAccount.sol";
 contract QngAccountFactory {
     QngAccount public immutable accountImplementation;
 
-    constructor(IEntryPoint _entryPoint) {
-        accountImplementation = new QngAccount(_entryPoint);
+    constructor(IEntryPoint _entryPoint, address _meerchange) {
+        accountImplementation = new QngAccount(_entryPoint, _meerchange);
     }
 
     /**

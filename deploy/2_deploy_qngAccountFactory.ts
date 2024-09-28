@@ -13,10 +13,11 @@ const deployQngAccountFactory: DeployFunction = async function (
     return;
   }
 
+  const MeerChangeAddr = "0x09654c5D28b462BA219038e534e685f703B2EE5f";
   const entrypoint = await hre.deployments.get("EntryPoint");
   const ret = await hre.deployments.deploy("QngAccountFactory", {
     from,
-    args: [entrypoint.address],
+    args: [entrypoint.address, MeerChangeAddr],
     gasLimit: 6e6,
     log: true,
     deterministicDeployment: true,
