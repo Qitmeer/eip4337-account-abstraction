@@ -201,7 +201,7 @@ contract QngAccount is
         uint32 idx,
         uint64 fee
     ) public pure returns (bytes32) {
-        // 计算标准的 eth_sign 消息哈希
+        // calc standard eth sign message
         return prefixed(keccak256(abi.encodePacked(txid, idx, fee)));
     }
 
