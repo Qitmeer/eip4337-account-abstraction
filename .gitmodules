@@ -1,0 +1,8 @@
+[submodule "node_modules/forge-std"]
+	path = node_modules/forge-std
+	url = https://github.com/foundry-rs/forge-std
+	branch = v1
+[submodule "node_modules/modular-account"]
+	path = node_modules/modular-account
+	url = https://github.com/alchemyplatform/modular-account
+	branch = v1.0.x
