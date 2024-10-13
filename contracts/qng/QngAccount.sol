@@ -125,7 +125,7 @@ contract QngAccount is
         if (owner != hash.recover(userOp.signature))
             return SIG_VALIDATION_FAILED;
         // if call meerchange methods, check op valid or not
-        // 1. check sig is valid. 2. check txid exist and check txid and owner
+        // 1. check sig is valid.
         // 0:16 execute method sig
         // 16:36 meerchange contract address
         // 36:100 zero padding
@@ -145,11 +145,6 @@ contract QngAccount is
             if (owner != messageHash.recover(signature)) {
                 return SIG_MEERCHANGE_FAILED;
             }
-            // check txid exist and check txid and signature is matched
-            // TODO
-            // if (!meerchange.checkTxid(txid, idx, fee, signature)) {
-            //     return SIG_MEERCHANGE_NOT_MATCHED;
-            // }
         }
         return 0;
     }
