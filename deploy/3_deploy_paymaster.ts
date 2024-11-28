@@ -8,7 +8,7 @@ const deployMeerChangePaymaster: DeployFunction = async function (
   const provider = ethers.provider;
   const from = await provider.getSigner().getAddress();
   const entrypoint = await hre.deployments.get("EntryPoint");
-  const MeerChangeAddr = "0x09654c5D28b462BA219038e534e685f703B2EE5f";
+  const MeerChangeAddr = "0x7D698C4E800dBc1E9B7e915BefeDdB59Aa9E8BB6";
 
   // use create2factory to deploy
   const ret = await hre.deployments.deploy("QngPaymaster", {

@@ -9,11 +9,11 @@ const deployQngAccountFactory: DeployFunction = async function (
   const from = await provider.getSigner().getAddress();
   const network = await provider.getNetwork();
   // only deploy on qng testnet and privnet network.
-  if (network.chainId !== 8131 && network.chainId !== 8133) {
+  if (network.chainId !== 8131 && network.chainId !== 813) {
     return;
   }
 
-  const MeerChangeAddr = "0x09654c5D28b462BA219038e534e685f703B2EE5f";
+  const MeerChangeAddr = "0x7D698C4E800dBc1E9B7e915BefeDdB59Aa9E8BB6";
   const entrypoint = await hre.deployments.get("EntryPoint");
   const ret = await hre.deployments.deploy("QngAccountFactory", {
     from,
