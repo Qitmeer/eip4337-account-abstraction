@@ -1,6 +1,7 @@
 import { HardhatRuntimeEnvironment } from "hardhat/types";
 import { DeployFunction } from "hardhat-deploy/types";
 import { ethers } from "hardhat";
+import { expect } from "chai";
 
 const deployQngAccountFactory: DeployFunction = async function (
   hre: HardhatRuntimeEnvironment
@@ -23,6 +24,8 @@ const deployQngAccountFactory: DeployFunction = async function (
     deterministicDeployment: true,
   });
   console.log("==QngAccountFactory addr=", ret.address);
+
+  expect(ret.address).to.eql("0xb979a65B7168FC48284D9afF1A079436761A21EB");
 };
 
 export default deployQngAccountFactory;

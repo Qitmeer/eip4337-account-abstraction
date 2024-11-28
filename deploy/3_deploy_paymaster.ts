@@ -1,6 +1,7 @@
 import { HardhatRuntimeEnvironment } from "hardhat/types";
 import { DeployFunction } from "hardhat-deploy/types";
 import { ethers } from "hardhat";
+import { expect } from "chai";
 
 const deployMeerChangePaymaster: DeployFunction = async function (
   hre: HardhatRuntimeEnvironment
@@ -19,6 +20,7 @@ const deployMeerChangePaymaster: DeployFunction = async function (
     log: true,
   });
   console.log("==MeerChangePaymaster addr=", ret.address);
+  expect(ret.address).to.eql("0xa9E0107cE8340D7E025885be51ce53F467dCebC1");
 };
 
 export default deployMeerChangePaymaster;
