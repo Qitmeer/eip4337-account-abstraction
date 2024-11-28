@@ -27,8 +27,12 @@ contract QngAccount is
     using ECDSA for bytes32;
 
     address public owner;
-
+    address public meerchange;
     IEntryPoint private immutable _entryPoint;
+
+    // meerchange error code start from 10000
+    uint256 internal constant SIG_MEERCHANGE_FAILED = 10000;
+    uint256 internal constant SIG_MEERCHANGE_NOT_MATCHED = 10001;
 
     event QngAccountInitialized(
         IEntryPoint indexed entryPoint,
@@ -48,11 +52,14 @@ contract QngAccount is
     // solhint-disable-next-line no-empty-blocks
     receive() external payable {}
 
-    constructor(IEntryPoint anEntryPoint) {
+    constructor(IEntryPoint anEntryPoint, address _meerchange) {
         _entryPoint = anEntryPoint;
+        meerchange = _meerchange;
         _disableInitializers();
     }
-
+    function changeMeerChange(address _meerchange) external onlyOwner {
+        meerchange = _meerchange;
+    }
     function _onlyOwner() internal view {
         //directly from EOA owner, or through the account itself (which gets redirected through execute())
         require(
@@ -117,6 +124,28 @@ contract QngAccount is
         bytes32 hash = userOpHash.toEthSignedMessageHash();
         if (owner != hash.recover(userOp.signature))
             return SIG_VALIDATION_FAILED;
+        // if call meerchange methods, check op valid or not
+        // 1. check sig is valid.
+        // 0:16 execute method sig
+        // 16:36 meerchange contract address
+        // 36:100 zero padding
+        // 100:132 zero padding
+        // 132:140 export method sig
+        // 140:172 param0 txid
+        // 172:204 param1 idx
+        // 204:236 param2 fee
+        // 236:300 params3 length
+        // 300:430 params3 sig
+        if (address(bytes20(userOp.callData[16:36])) == meerchange) {
+            bytes32 txid = bytes32(userOp.callData[132:140]); // txid
+            uint32 idx = uint32(uint256(bytes32(userOp.callData[172:204]))); // idx
+            uint64 fee = uint64(uint256(bytes32(userOp.callData[204:236]))); // fee
+            bytes memory signature = userOp.callData[300:430]; // signature
+            bytes32 messageHash = getMessageHash(txid, idx, fee);
+            if (owner != messageHash.recover(signature)) {
+                return SIG_MEERCHANGE_FAILED;
+            }
+        }
         return 0;
     }
 
@@ -160,5 +189,21 @@ contract QngAccount is
     ) internal view override {
         (newImplementation);
         _onlyOwner();
+    }
+
+    function getMessageHash(
+        bytes32 txid,
+        uint32 idx,
+        uint64 fee
+    ) public pure returns (bytes32) {
+        // calc standard eth sign message
+        return prefixed(keccak256(abi.encodePacked(txid, idx, fee)));
+    }
+
+    function prefixed(bytes32 hash) internal pure returns (bytes32) {
+        return
+            keccak256(
+                abi.encodePacked("\x19Ethereum Signed Message:\n32", hash)
+            );
     }
 }
